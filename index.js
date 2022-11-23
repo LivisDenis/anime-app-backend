@@ -10,9 +10,10 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+app.get('/user/:id', UserController.getOne)
+app.get('/auth/me', checkAuth, UserController.getMe)
 app.post('/auth/login', loginValidation, handleValidationErrors, UserController.login)
 app.post('/auth/registration', registerValidation, handleValidationErrors, UserController.register)
-app.get('/auth/me', checkAuth, UserController.getMe)
 
 const start = async () => {
     try {

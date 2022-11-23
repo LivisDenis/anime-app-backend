@@ -97,9 +97,43 @@ const getMe = async (req, res) => {
         })
     }
 }
+const getOne = async (req, res) => {
+    try {
+        const userId = req.params.id
+
+        UserModel.findByIdAndUpdate(
+            {
+                _id: userId
+            },
+            {
+                returnDocument: 'after'
+            },
+            (err, doc) => {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Нe удалось получить пользователя'
+                    })
+                }
+
+                if (!doc) {
+                    return res.status(404).json({
+                        message: 'Пользователь не найден'
+                    })
+                }
+
+                res.json(doc)
+            }
+        )
+    } catch (err) {
+        res.status(500).json({
+            message: 'Не удалось получить пользователя'
+        })
+    }
+}
 
 export default {
     register,
     login,
-    getMe
+    getMe,
+    getOne
 }
