@@ -12,7 +12,13 @@ const loginValidation = [
     body('password', 'Пароль должен быть минимум 5 символов').isLength({min: 6}),
 ]
 
+const animeSaveValidation = [
+    body('id', 'Неверный формат id').isString(),
+    body('attributes', 'Неверный формат').isObject()
+]
+
 export {
     registerValidation,
     loginValidation,
+    animeSaveValidation
 }
